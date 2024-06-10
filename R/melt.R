@@ -84,3 +84,47 @@ calculate_precip <- function( t ) {
 
   return( out )
 }
+
+
+
+#' Integrate the balance rate over time for given temperature and precipitation arrays to get the "net balance".
+#'
+#' @param dt The time step.
+#' @param Ts Array of temperatures.
+#' @param Ps Array of precipitations.
+#' @param melt_factor The factor to compute melt amount.
+#' @param T_threshold The temperature threshold for accumulation.
+#' @return The net balance at a point.
+net_balance_fn <- function(dt, Ts, Ps, melt_factor, T_threshold) {
+  stopifnot(length(Ts) == length(Ps))
+  total <- 0.0
+  for (i in seq_along(Ts)) {
+    T <- Ts[i]
+    P <- Ps[i]
+    balance_rate <- -melt(T, melt_factor) + accumulate(T, P, T_threshold)
+    total <- total + balance_rate * dt
+  }
+  return(total)
+}
+
+#' Calculate the glacier net balance and the net balance at each point.
+#'
+#' @param zs Array of elevations (with the weather station as datum).
+#' @param dt The time step.
+#' @param Ts Array of temperatures.
+#' @param Ps Array of precipitations.
+#' @param melt_factor The factor to compute melt amount.
+#' @param T_threshold The temperature threshold for accumulation.
+#' @param lapse_rate The lapse rate (temperature change per unit elevation change).
+#' @return A list containing the glacier net balance [m] and net balance at all points [m].
+glacier_net_balance_fn <- function(zs, dt, Ts, Ps, melt_factor, T_threshold, lapse_rate) {
+  glacier_net_balance <- 0.0
+  net_balance <- numeric(length(zs))
+  for (i in seq_along(zs)) {
+    z <- zs[i]
+    TT <- sapply(Ts, lapse, z = z, lapse_rate = lapse_rate)
+    net_balance[i] <- net_balance_fn(dt, TT, Ps, melt_factor, T_threshold)
+    glacier_net_balance <- glacier_net_balance + net_balance[i]
+  }
+  return(list(glacier_net_balance = glacier_net_balance / length(zs), net_balance = net_balance))
+}
