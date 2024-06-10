@@ -98,6 +98,7 @@ calculate_precip <- function( t ) {
 #' @param melt_factor The factor to compute melt amount.
 #' @param T_threshold The temperature threshold for accumulation.
 #' @return The net balance at a point.
+#' @export
 net_balance_fn <- function(dt, Ts, Ps, melt_factor, T_threshold) {
   stopifnot(length(Ts) == length(Ps))
   total <- 0.0
@@ -122,6 +123,7 @@ net_balance_fn <- function(dt, Ts, Ps, melt_factor, T_threshold) {
 #' @param T_threshold The temperature threshold for accumulation.
 #' @param lapse_rate The lapse rate (temperature change per unit elevation change).
 #' @return A list containing the glacier net balance [m] and net balance at all points [m].
+#' @export
 glacier_net_balance_fn <- function(zs, dt, Ts, Ps, melt_factor, T_threshold, lapse_rate) {
   glacier_net_balance <- 0.0
   net_balance <- numeric(length(zs))
