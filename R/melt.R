@@ -87,7 +87,10 @@ calculate_precip <- function( t ) {
 
 
 
-#' Integrate the balance rate over time for given temperature and precipitation arrays to get the "net balance".
+#' @title net_balance_fn()
+#'
+#' @description Integrate the balance rate over time for given temperature and
+#'              precipitation arrays to get the "net balance".
 #'
 #' @param dt The time step.
 #' @param Ts Array of temperatures.
@@ -107,7 +110,9 @@ net_balance_fn <- function(dt, Ts, Ps, melt_factor, T_threshold) {
   return(total)
 }
 
-#' Calculate the glacier net balance and the net balance at each point.
+#' @title glacier_net_balance_fn()
+#'
+#' @description Calculate the glacier net balance and the net balance at each point.
 #'
 #' @param zs Array of elevations (with the weather station as datum).
 #' @param dt The time step.
