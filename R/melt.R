@@ -1,0 +1,86 @@
+#' @title calculate_melt()
+#'
+#' @description calculate the melting rate of the glacier (m/day)
+#' @param temperature average temperature
+#' @param melt_factor a melting factor (m/day/degree).
+#' @examples calculate_melt(temperature = 5, melt_factor = 0.1)
+#' @export
+calculate_melt <- function( temperature, melt_factor ) {
+
+  if (melt_factor < 0) {
+    stop("melt_factor cannot be negative. Please check your input parameters.")
+  }
+
+  if (temperature >= 0) {
+
+    out <- melt_factor * temperature
+
+  } else {
+
+    out <- 0
+
+  }
+
+  return( out )
+}
+
+
+#' @title calculate_accumulation()
+#'
+#' @description Calculate accumulation at a point
+#'
+#' @param temperature Numeric. The temperature at the point of interest (in Celsius).
+#' @param precipitation Numeric. The precipitation amount (in mm or other units).
+#' @param threshold_temperature Numeric. The threshold temperature below which it snows (in Celsius).
+#'
+#' @return Numeric. The accumulation at the given point.
+#' @examples calculate_accumulation(temperature = -2, precipitation = 10, threshold_temperature = 0)
+#' @export
+calculate_accumulation <- function(temperature, precipitation, threshold_temperature) {
+
+  if (temperature <= threshold_temperature) {
+
+    return(precipitation)
+
+  } else {
+
+    return(0)
+
+  }
+}
+
+#' @title calculate_lapsed_temperature()
+#'
+#' @description Calculate lapsed temperature
+#'
+#' @param elevation Numeric. The elevation at the point of interest (in meters).
+#' @param elevation_station Numeric. The elevation of the weather station (in meters).
+#' @param temperature_station Numeric. The temperature at the weather station (in Celsius).
+#' @param lapse_rate Numeric. The lapse rate (in Celsius per meter).
+#'
+#' @return Numeric. The lapsed temperature at the given elevation.
+#' @examples
+#' calculate_lapsed_temperature(elevation = 1500, elevation_station = 1000,
+#' temperature_station = 10, lapse_rate = -0.0065)
+#' @export
+calculate_lapsed_temperature <- function(elevation, elevation_station, temperature_station, lapse_rate) {
+  delta_z = elevation - elevation_station
+
+  temperature = lapse_rate * delta_z + temperature_station
+
+  return(temperature)
+}
+
+
+#' @title calculate_precip()
+#'
+#' @description generate synthetic precipitation data (m/day)
+#' @param t time in days since beginning of simulation (currently deactivated)
+#' @examples calculate_precip(t = 5)
+#' @export
+calculate_precip <- function( t ) {
+
+  out <- 8e-3 # m/day
+
+  return( out )
+}
