@@ -9,11 +9,11 @@ Authors@R: c(
     person("Volodymyr", "Trotsiuk", email = "volodymyr.trotsiuk@wsl.ch", role = c("aut"), comment=c(ORCID="0000-0002-8363-656X"))
     )
 License: GPL-3
-<<<<<<< HEAD
 Imports:
 Suggests:
     knitr,
     rmarkdown,
+    ggplot2,
     testthat
 Encoding: UTF-8
 LazyData: true
