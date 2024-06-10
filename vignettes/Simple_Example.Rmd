@@ -1,0 +1,67 @@
+---
+title: "Simple_Example"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Simple_Example}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(breithornToyProjectCORDS)
+
+# load a plotting library
+library(ggplot2)
+
+## Define the synthetic weather and glacier
+synthetic_T <- function(t){
+  
+}
+synthetic_Pfunction <- function(t){
+  
+}
+synthetic_glacier <- function(){
+    return(list(x,elevation))
+}
+## Define constants
+lapse_rate = -0.6/100
+melt_factor = 0.005
+T_threshold = 4
+dt = 1/24
+t = 0:dt:365
+
+## Plot the synthetic weather
+Ts = synthetic_T
+# plot(Ts)
+
+# ## Run the model for one year at a point
+# ele = 1500
+# Ts_ele = calculate_lapsed_temperature(...)
+# Ps = ...
+# total_point_balance(...)
+
+# ## Run the model for one year for the whole glacier
+# res = synthetic_glacier()
+# xs = res[1]
+# zs = res[2]
+# Ts = ...
+# total_massbalance, point_massbalance = glacier_balance(...)
+# plot(xs, point_massbalance)
+# 
+# ## Generate output table
+# # make a table of mass-balance for different temperature offsets and store it
+# out = []
+# for dT = -4:4
+#     Ts_ = synthetic_T.(t) .+ dT
+#     # run model
+#     # store in out
+# end
+
+```
