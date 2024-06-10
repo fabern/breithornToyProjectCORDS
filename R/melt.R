@@ -104,7 +104,7 @@ net_balance_fn <- function(dt, Ts, Ps, melt_factor, T_threshold) {
   for (i in seq_along(Ts)) {
     T <- Ts[i]
     P <- Ps[i]
-    balance_rate <- -melt(T, melt_factor) + accumulate(T, P, T_threshold)
+    balance_rate <- -calculate_melt(T, melt_factor) + calculate_accumulation(T, P, T_threshold)
     total <- total + balance_rate * dt
   }
   return(total)
@@ -127,7 +127,7 @@ glacier_net_balance_fn <- function(zs, dt, Ts, Ps, melt_factor, T_threshold, lap
   net_balance <- numeric(length(zs))
   for (i in seq_along(zs)) {
     z <- zs[i]
-    TT <- sapply(Ts, lapse, z = z, lapse_rate = lapse_rate)
+    TT <- sapply(Ts, calculate_lapsed_temperature, z = z, lapse_rate = lapse_rate)
     net_balance[i] <- net_balance_fn(dt, TT, Ps, melt_factor, T_threshold)
     glacier_net_balance <- glacier_net_balance + net_balance[i]
   }
