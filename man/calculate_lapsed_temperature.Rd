@@ -4,12 +4,8 @@
 \alias{calculate_lapsed_temperature}
 \title{calculate_lapsed_temperature()}
 \usage{
-calculate_lapsed_temperature(
-  elevation,
-  elevation_station,
-  temperature_station,
-  lapse_rate
-)
+calculate_lapsed_temperature(elevation, elevation_station, temperature_station,
+  lapse_rate)
 }
 \arguments{
 \item{elevation}{Numeric. The elevation at the point of interest (in meters).}
